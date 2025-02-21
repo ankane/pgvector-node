@@ -277,19 +277,25 @@ See a [full example](tests/kysely.test.mjs)
 
 ## Sequelize
 
-Enable the extension
-
-```javascript
-await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
-```
-
-Register the types
+Register the types **before** establishing the database connection.
 
 ```javascript
 import { Sequelize } from 'sequelize';
 import pgvector from 'pgvector/sequelize';
 
 pgvector.registerTypes(Sequelize);
+```
+
+Initialize the connection to the database.
+
+```javascript
+let sequelize = new Sequelize(/* ... */);
+```
+
+Enable the extension
+
+```javascript
+await sequelize.query('CREATE EXTENSION IF NOT EXISTS vector');
 ```
 
 Add a vector field
